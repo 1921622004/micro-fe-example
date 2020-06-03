@@ -3,28 +3,18 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/index.js',
   mode: 'development',
   output: {
-    publicPath: '//localhost:3000/'
+
   },
   devtool: 'source-map',
-  resolve: {
-    extensions: ['.jsx', '.js']
-  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: [require.resolve('@babel/preset-react')]
-        }
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -33,13 +23,12 @@ module.exports = {
       template: 'public/index.html'
     }),
     new ModuleFederationPlugin({
-      name: 'base',
-      library: { type: 'var', name: 'home' },
+      name: 'store',
+      library: { type: 'var', name: 'store' },
       filename: 'remoteEntry.js',
-      remotes: {
-        addItem: 'addItem'
-      },
-      shared: ['react', 'react-dom', 'antd']
+      exposes: {
+        store: './src/index'
+      }
     })
   ],
   devServer: {

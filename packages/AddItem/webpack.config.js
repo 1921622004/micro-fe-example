@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.jsx',
   mode: 'development',
   output: {
-    publicPath: '//localhost:3000/'
+    publicPath: '//localhost:3001/'
   },
   devtool: 'source-map',
   resolve: {
@@ -33,19 +33,19 @@ module.exports = {
       template: 'public/index.html'
     }),
     new ModuleFederationPlugin({
-      name: 'base',
-      library: { type: 'var', name: 'home' },
-      filename: 'remoteEntry.js',
-      remotes: {
-        addItem: 'addItem'
+      name: 'addItem',
+      library: { type: 'var', name: 'addItem' },
+      exposes: {
+        AddItem: './src/AddItem.jsx'
       },
+      filename: 'remoteEntry.js',
       shared: ['react', 'react-dom', 'antd']
     })
   ],
   devServer: {
-    port: 3000,
+    port: 3001,
     open: true,
     contentBase: path.join('dist'),
-    historyApiFallback: true
+    disableHostCheck: true,
   }
 }
