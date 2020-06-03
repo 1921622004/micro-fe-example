@@ -1,0 +1,20 @@
+{
+  "name": "micro-fe-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1921622004/micro-fe-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1921622004/micro-fe-example/issues"
+  },
+  "homepage": "https://github.com/1921622004/micro-fe-example#readme"
+}
