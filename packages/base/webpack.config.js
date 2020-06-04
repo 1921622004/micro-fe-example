@@ -4,9 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
+  cache: false,
   mode: 'development',
   output: {
     publicPath: '//localhost:3000/'
+  },
+  optimization: {
+    minimize: false
   },
   devtool: 'source-map',
   resolve: {
@@ -17,7 +21,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
         options: {
           presets: [require.resolve('@babel/preset-react')]
         }
@@ -34,12 +37,15 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: 'base',
-      library: { type: 'var', name: 'home' },
+      library: { type: 'var', name: 'base' },
       filename: 'remoteEntry.js',
-      remotes: {
-        addItem: 'addItem'
+      exposes: {
+        App: './src/App.jsx'
       },
-      shared: ['react', 'react-dom', 'antd']
+      remotes: {
+        add_item: 'add_item'
+      },
+      shared: ['react', 'react-dom']
     })
   ],
   devServer: {

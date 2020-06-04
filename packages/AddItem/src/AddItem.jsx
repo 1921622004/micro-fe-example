@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Form, Input } from "antd";
+import { Form, Input, Button } from "antd";
 import singleSpaReact from "single-spa-react";
+
+window.__react_2 = React;
 
 const layout = {
   labelCol: { span: 8 },
@@ -9,6 +11,10 @@ const layout = {
 };
 
 const AddItem = () => {
+  return (
+    <Button>test</Button>
+  )
+
   return (
     <Form {...layout}>
       <Form.Item required label="title" name="title">

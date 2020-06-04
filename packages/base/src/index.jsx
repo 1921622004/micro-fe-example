@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "antd/dist/antd.css";
 import App from "./App";
 
+window.__react_1 = React;
+
 ReactDom.render(
   (
     <Router>
