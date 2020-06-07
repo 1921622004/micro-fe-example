@@ -3,6 +3,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  name: 'add_item',
   entry: './src/index.jsx',
   cache: false,
   mode: 'development',
@@ -37,12 +38,17 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: 'add_item',
-      library: { type: 'var', name: 'add_item' },
       exposes: {
-        AddItem: './src/AddItem.jsx'
+        './AddItem': './src/AddItem.jsx'
       },
       filename: 'remoteEntry.js',
-      shared: ['react', 'react-dom']
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: '^16.13.1',
+          eager: true
+        }
+      }
     })
   ],
   devServer: {

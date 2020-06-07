@@ -6,9 +6,6 @@ module.exports = {
   entry: './src/index.jsx',
   cache: false,
   mode: 'development',
-  output: {
-    publicPath: '//localhost:3000/'
-  },
   optimization: {
     minimize: false
   },
@@ -37,15 +34,21 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: 'base',
-      library: { type: 'var', name: 'base' },
-      filename: 'remoteEntry.js',
-      exposes: {
-        App: './src/App.jsx'
-      },
       remotes: {
         add_item: 'add_item'
       },
-      shared: ['react', 'react-dom']
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: '^16.13.1',
+          eager: true,
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: '^16.13.1',
+          eager: true
+        }
+      }
     })
   ],
   devServer: {

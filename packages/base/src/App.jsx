@@ -32,7 +32,7 @@ const App = () => {
         <Content style={{ padding: '0 50px' }}>
           <Suspense fallback={(<div>loading</div>)}>
             <Switch>
-              <Route path="/add" component={lazy(() => import('add_item/AddItem'))}></Route>
+              <Route component={lazy(() => import('add_item/AddItem'))}></Route>
             </Switch>
           </Suspense>
 
