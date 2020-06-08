@@ -1,16 +1,13 @@
 import React from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import "antd/dist/antd.css";
+import AddItem from "./AddItem";
 
-import "./index.css";
-import App from "./App";
+window.__react2 = React;
 
 ReactDom.render(
   (
-    <Router>
-      <App />
-    </Router>
+    <AddItem />
   ),
   document.getElementById('root'));
 

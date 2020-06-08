@@ -22,6 +22,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           presets: [require.resolve('@babel/preset-react')]
         }
@@ -41,6 +42,7 @@ module.exports = {
       exposes: {
         './AddItem': './src/AddItem.jsx'
       },
+      library: { type: 'var', name: 'add_item' },
       filename: 'remoteEntry.js',
       shared: {
         react: {

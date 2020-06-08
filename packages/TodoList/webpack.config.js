@@ -3,9 +3,13 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  name: 'todo_list',
   entry: './src/index.jsx',
   cache: false,
   mode: 'development',
+  output: {
+    publicPath: '//localhost:3001/'
+  },
   optimization: {
     minimize: false
   },
@@ -34,17 +38,14 @@ module.exports = {
       template: 'public/index.html'
     }),
     new ModuleFederationPlugin({
-      name: 'base',
-      remotes: {
-        add_item: 'add_item'
+      name: 'todo_list',
+      exposes: {
+        './TodoList': './src/TodoList.jsx'
       },
+      library: { type: 'var', name: 'todo_list' },
+      filename: 'remoteEntry.js',
       shared: {
         react: {
-          singleton: true,
-          requiredVersion: '^16.13.1',
-          eager: true,
-        },
-        'react-dom': {
           singleton: true,
           requiredVersion: '^16.13.1',
           eager: true
@@ -53,9 +54,9 @@ module.exports = {
     })
   ],
   devServer: {
-    port: 3000,
+    port: 3001,
     open: true,
     contentBase: path.join('dist'),
-    historyApiFallback: true
+    disableHostCheck: true,
   }
 }
