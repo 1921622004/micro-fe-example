@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { Form, Input, Button } from "antd";
+// import { Form, Input, Button } from "antd";
 
 window.__react_2 = React;
 
@@ -13,7 +12,7 @@ const AddItem = () => {
   const [count, setCount] = useState(0);
   return (
     <>
-      <Button onClick={() => setCount(count + 1)}>test</Button>
+      <button onClick={() => setCount(count + 1)}>test</button>
       <b>{count}</b>
     </>
   )

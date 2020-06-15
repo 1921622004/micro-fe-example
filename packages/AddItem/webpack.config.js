@@ -1,10 +1,10 @@
 const path = require('path');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   name: 'add_item',
-  entry: './src/index.jsx',
+  entry: './src/index.js',
   cache: false,
   mode: 'development',
   output: {
@@ -46,16 +46,38 @@ module.exports = {
       filename: 'remoteEntry.js',
       shared: {
         react: {
-          singleton: true,
-          requiredVersion: '^16.13.1',
-          eager: true
+          singleton: true
+        },
+        'react-dom': {
+          singleton: true
         }
       }
+      // shared: {
+      //   react: {
+      //     singleton: true,
+      //     requiredVersion: '^16.13.1',
+      //     eager: true
+      //   },
+      //   'react-dom': {
+      //     singleton: true,
+      //     requiredVersion: '^16.13.1',
+      //     eager: true
+      //   },
+      //   'antd': {
+      //     eager: true
+      //   },
+      //   '@ant-design/icons': {
+      //     eager: true
+      //   },
+      //   'recoil': {
+      //     singleton: true,
+      //     requiredVersion: '0.0.8'
+      //   }
+      // }
     })
   ],
   devServer: {
     port: 3001,
-    open: true,
     contentBase: path.join('dist'),
     disableHostCheck: true,
   }
