@@ -1,61 +1,53 @@
-const path = require('path');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ModuleFederationPlugin } = require("webpack").container;
+const path = require("path");
 
 module.exports = {
-  entry: './src/index.jsx',
-  cache: false,
-  mode: 'development',
-  optimization: {
-    minimize: false
+  entry: "./src/index.jsx",
+  mode: "development",
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    port: 3000,
+    historyApiFallback: true
   },
-  devtool: 'source-map',
-  resolve: {
-    extensions: ['.jsx', '.js']
+  output: {
+    publicPath: "http://localhost:3000/",
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
         options: {
-          presets: [require.resolve('@babel/preset-react')]
-        }
+          presets: ["@babel/preset-react"],
+        },
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
-    ]
+    ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'public/index.html'
-    }),
     new ModuleFederationPlugin({
-      name: 'base',
+      name: "base",
+      library: { type: "var", name: "base" },
+      filename: "remoteEntry.js",
       remotes: {
-        add_item: 'add_item'
+        add_item: "add_item",
       },
       shared: {
         react: {
           singleton: true,
-          requiredVersion: '^16.13.1',
-          eager: true,
         },
-        'react-dom': {
+        "react-dom": {
           singleton: true,
-          requiredVersion: '^16.13.1',
-          eager: true
-        }
-      }
-    })
+        },
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
   ],
-  devServer: {
-    port: 3000,
-    open: true,
-    contentBase: path.join('dist'),
-    historyApiFallback: true
-  }
-}
+};

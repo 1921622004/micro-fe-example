@@ -3,6 +3,9 @@ import { Layout, Menu } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { Switch, Route, useHistory, Redirect } from "react-router";
 
+import "antd/dist/antd.css";
+import "./index.css";
+
 const { Content, Sider, Header } = Layout;
 
 const App = () => {
