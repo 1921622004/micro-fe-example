@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 3000,
+    port: 3002,
     historyApiFallback: true
   },
   output: {
@@ -31,8 +31,11 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "base",
+      name: "settings",
       library: { type: "var", name: "base" },
+      exposes: {
+        './SharedTable': './src/components/SharedTable'
+      },
       filename: "remoteEntry.js",
       remotes: {
         add_item: "add_item",

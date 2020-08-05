@@ -1,11 +1,12 @@
 {
-  "name": "add_item",
+  "name": "base",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.js",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "serve": "serve dist"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
     "html-webpack-plugin": "git://github.com/ScriptedAlchemy/html-webpack-plugin#master",
+    "serve": "^11.3.2",
     "style-loader": "^1.2.1",
     "webpack": "^5.0.0-beta.17",
     "webpack-cli": "^3.3.11",
@@ -29,7 +31,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "recoil": "0.0.8",
-    "single-spa": "^5.5.2",
-    "single-spa-react": "^2.14.0"
+    "single-spa": "^5.5.2"
   }
 }

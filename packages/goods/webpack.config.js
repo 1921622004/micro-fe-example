@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 3000,
+    port: 3001,
     historyApiFallback: true
   },
   output: {
@@ -31,7 +31,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "base",
+      name: "goods",
       library: { type: "var", name: "base" },
       filename: "remoteEntry.js",
       remotes: {
