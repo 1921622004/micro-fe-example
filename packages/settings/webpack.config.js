@@ -11,7 +11,7 @@ module.exports = {
     historyApiFallback: true
   },
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath: "http://localhost:3002/",
   },
   module: {
     rules: [
@@ -32,14 +32,12 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "settings",
-      library: { type: "var", name: "base" },
+      library: { type: "var", name: "settings" },
       exposes: {
+        './Settings': './src/App',
         './SharedTable': './src/components/SharedTable'
       },
       filename: "remoteEntry.js",
-      remotes: {
-        add_item: "add_item",
-      },
       shared: {
         react: {
           singleton: true,

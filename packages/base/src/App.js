@@ -30,9 +30,8 @@ const App = () => {
           style={{ height: '100%', borderRight: 0 }}
           theme="dark"
         >
-          <Menu.Item key="app1">app1</Menu.Item>
-          <Menu.Item key="app2">app2</Menu.Item>
-          <Menu.Item key="app3">app3</Menu.Item>
+          <Menu.Item key="goods">商品列表</Menu.Item>
+          <Menu.Item key="settings">配置</Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -54,9 +53,8 @@ const App = () => {
         >
           <Suspense fallback={(<div>loading</div>)}>
             <Switch>
-              <Route path="/list" />
-              <Route path="/add" component={lazy(() => import('add_item/AddItem'))}></Route>
-              <Redirect to="/list" />
+              <Route path="/goods" exact component={lazy(() => import('goods/GoodsList'))}/>
+              <Route path="/settings" exact component={lazy(() => import('settings/Settings'))}></Route>
             </Switch>
           </Suspense>
         </Content>

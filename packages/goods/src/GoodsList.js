@@ -45,11 +45,11 @@ const App = () => {
   return (
     <>
       <Button onClick={showModal}>导出主图</Button>
-      <Table dataSource={data} rowSelection={{selectedRowKeys, onChange: selectionChangeHandler}}>
+      <Table dataSource={data} rowKey="id" rowSelection={{selectedRowKeys, onChange: selectionChangeHandler}}>
         <TableColumn title="货号" dataIndex="code"/>
         <TableColumn title="期数" dataIndex="period"/>
       </Table>
-      <Modal title="导出主图" visible={modalVisible}>
+      <Modal title="导出主图" visible={modalVisible} onCancel={() => setModalVisible(false)}>
         <TableWrapper ids={setSelectedRowKeys}/>
       </Modal>
     </>

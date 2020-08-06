@@ -1,66 +1,95 @@
-import React, { lazy, Suspense, useState } from "react";
-import { Layout, Menu } from "antd";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import React, { lazy, Suspense, useState, useCallback } from "react";
+import { Button, Table, Modal } from "antd";
 
 import "antd/dist/antd.css";
 import "./index.css";
 
-const { Content, Sider, Header } = Layout;
+import SharedTable from './components/SharedTable'
+
+const TableColumn = Table.Column;
+
+const data = [
+  {
+    id: 1,
+    platform: '天猫',
+    name: '111',
+    data: [
+      {
+        id: 1,
+        platform: '淘宝',
+        types: [
+          {
+            label: '电脑端宝贝图',
+            value: '1'
+          },
+          {
+            label: '颜色图',
+            value: '2'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    platform: '京东',
+    name: '222',
+    data: [
+      {
+        id: 2,
+        platform: '京东',
+        types: [
+          {
+            label: '产品展示图',
+            value: '1'
+          },
+          {
+            label: '透明素材图',
+            value: '2'
+          }
+        ]
+      }
+    ]
+  }
+]
 
 const App = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const history = useHistory();
-  const toggle = () => setCollapsed(!collapsed);
-  return (
-    <Layout className="layout" style={{ height: '100vh' }}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentRecord, setCurrentRecord] = useState(null);
+
+  const closeModalHandler = useCallback(() => {
+    setModalVisible(false);
+    setCurrentRecord(null);
+  }, []);
+  const operRenderer = useCallback((_t, record) => {
+    return (
+      <Button
+        type="text"
+        onClick={() => {
+          setModalVisible(true)
+          setCurrentRecord(record.data)
+        }}
       >
-        <div className="logo" />
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['list']}
-          onSelect={({ key }) => {
-            console.log(key);
-            history.push(`/${key}`)
-          }}
-          style={{ height: '100%', borderRight: 0 }}
-          theme="dark"
-        >
-          <Menu.Item key="app1">app1</Menu.Item>
-          <Menu.Item key="app2">app2</Menu.Item>
-          <Menu.Item key="app3">app3</Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-        >
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggle,
-          })}
-        </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-          className="site-layout-background"
-        >
-          <Suspense fallback={(<div>loading</div>)}>
-            <Switch>
-              <Route path="/list" />
-              <Route path="/add" component={lazy(() => import('add_item/AddItem'))}></Route>
-              <Redirect to="/list" />
-            </Switch>
-          </Suspense>
-        </Content>
-      </Layout>
-    </Layout>
+        编辑
+      </Button>
+    )
+  }, [])
+
+  return (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>主图导出规则</span>
+        <Button onClick={() => setModalVisible(true)}>新增</Button>
+      </div>
+      <Table dataSource={data} rowKey="id">
+        <TableColumn dataIndex="name" />
+        <TableColumn dataIndex="platform" />
+        <TableColumn render={operRenderer} />
+      </Table>
+      <Modal visible={modalVisible} onCancel={closeModalHandler} >
+        <SharedTable data={currentRecord} />
+      </Modal>
+    </>
   )
 }
 

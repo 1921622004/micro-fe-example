@@ -35,7 +35,8 @@ module.exports = {
       library: { type: "var", name: "base" },
       filename: "remoteEntry.js",
       remotes: {
-        add_item: "add_item",
+        goods: 'goods',
+        settings: 'settings',
       },
       shared: {
         react: {
