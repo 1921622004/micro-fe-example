@@ -1,0 +1,1 @@
+具体配置 https://github.com/webpack/webpack/blob/master/declarations/plugins/container/ModuleFederationPlugin.d.ts
